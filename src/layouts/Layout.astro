@@ -101,7 +101,9 @@ const { title, showTopBar } = Astro.props;
 
 <style lang="scss" is:global>
   @use "@/scss/colors";
-  @use "material-symbols";
+  @use "material-symbols" with (
+    $material-symbols-font-path: "material-symbols/"
+  );
 
   html {
     scroll-behavior: smooth;

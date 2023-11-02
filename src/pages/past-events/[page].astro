@@ -1,0 +1,60 @@
+---
+import EventTable from "@/components/EventTable.astro";
+import { compareEventStart, isEventInFuture } from "@/helpers/event-date-time";
+import Layout from "@/layouts/Layout.astro";
+import { EventSchema, type Event } from "@/types/Event";
+import type {
+  GetStaticPathsOptions,
+  GetStaticPathsResult,
+  MDXInstance,
+  Page,
+} from "astro";
+
+interface Props {
+  page: Page<MDXInstance<Event> & MDXInstance<Event>["frontmatter"]>;
+}
+
+export async function getStaticPaths({
+  paginate,
+}: GetStaticPathsOptions): Promise<GetStaticPathsResult> {
+  const events = (await Astro.glob<Event>("../events/*.mdx"))
+    .map((event) => ({
+      ...event,
+      ...event.frontmatter,
+    }))
+    // validate all events
+    .map((event) => {
+      EventSchema.parse(event);
+      return event;
+    })
+    .filter((e) => !isEventInFuture(e))
+    // sort events, most recent first
+    .sort((a, b) => compareEventStart(b, a));
+
+  return paginate(events, { pageSize: 10 });
+}
+
+const { page } = Astro.props;
+---
+
+<Layout title="Past Events - Queer Coded UBC" showTopBar>
+  <div class="events-container">
+    <h2>Past Events</h2>
+    {
+      page.data.length > 0 ? (
+        <EventTable events={page.data} />
+      ) : (
+        <p>There are no past events at this time</p>
+      )
+    }
+  </div>
+</Layout>
+
+<style lang="scss">
+  .events-container {
+    margin: auto;
+    padding: 0 1rem;
+    text-align: center;
+    max-width: calc(3 * 320px + 2 * 1rem);
+  }
+</style>

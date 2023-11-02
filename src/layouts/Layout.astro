@@ -1,9 +1,13 @@
 ---
+import Footer from "@/components/Footer.astro";
+import TopBar from "@/components/TopBar.astro";
+
 interface Props {
   title: string;
+  showTopBar?: boolean;
 }
 
-const { title } = Astro.props;
+const { title, showTopBar } = Astro.props;
 ---
 
 <!doctype html>
@@ -19,7 +23,11 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body ontouchstart="">
-    <slot />
+    {showTopBar && <TopBar />}
+    <main>
+      <slot />
+    </main>
+    <Footer />
   </body>
 </html>
 
@@ -53,7 +61,7 @@ const { title } = Astro.props;
 
 <style lang="scss" is:global>
   @use "@/scss/colors";
-  @use "material-icons/iconfont/material-icons.css";
+  @use "material-symbols";
 
   html {
     scroll-behavior: smooth;
@@ -111,10 +119,6 @@ const { title } = Astro.props;
         color: colors.$link-text-color-visited-dark;
       }
     }
-  }
-
-  .icon {
-    user-select: none;
   }
 
   input,

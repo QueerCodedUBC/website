@@ -1,0 +1,83 @@
+---
+import type { ImageInputFormat, ImageMetadata } from "astro";
+import { getImage } from "astro:assets";
+
+interface Props {
+  src:
+    | ImageMetadata
+    | Promise<{
+        default: ImageMetadata;
+      }>;
+  dominantColor: string;
+  alt: string;
+  [key: string]: any;
+}
+
+interface Format {
+  format: ImageInputFormat;
+  type: string;
+  [key: string]: any;
+}
+
+const IMAGE_SIZES = [
+  128, 256, 384, 640, 750, 828, 1080, 1200, 1920, 2048, 3840,
+];
+
+const { src, dominantColor, ...attrs } = Astro.props;
+
+const formats: Format[] = [
+  { format: "avif", type: "image/avif" },
+  { format: "webp", type: "image/webp" },
+  { format: "jpeg", type: "image/jpeg" },
+];
+
+const images = await Promise.all(
+  formats.map(
+    async (format) =>
+      await Promise.all(
+        IMAGE_SIZES.map(async (size) => {
+          const image = await getImage({ src, ...format, width: size });
+
+          return image;
+        })
+      )
+  )
+);
+
+const safeSrcObj =
+  typeof src === "object" && "then" in src ? (await src).default : src;
+---
+
+<picture>
+  {
+    images.map((formatImages) => {
+      return (
+        <source
+          srcset={formatImages
+            .map((image) => {
+              return `${image.src} ${image.attributes.width}w`;
+            })
+            .join(", ")}
+          type={formatImages[0].attributes.type}
+        />
+      );
+    })
+  }
+  <img
+    src={safeSrcObj.src}
+    loading="lazy"
+    decoding="async"
+    width={safeSrcObj.width}
+    height={safeSrcObj.height}
+    {...attrs}
+    style={dominantColor && {
+      backgroundColor: dominantColor,
+    }}
+  />
+</picture>
+
+<style>
+  picture > img {
+    display: block;
+  }
+</style>

@@ -1,0 +1,130 @@
+---
+import { minimatch } from "minimatch";
+import LogoName from "./LogoName.astro";
+
+interface NavLink {
+  href: string;
+  text: string;
+  /**
+   * Glob pattern to match the current page against.
+   */
+  activeGlob?: string;
+}
+
+const navLinks = labelActiveLink([
+  { href: "/", text: "Home" },
+  { href: "/past-events/1", activeGlob: "/past-events/*", text: "Past Events" },
+]);
+
+// if multiple links match, the longest one will be marked as active.
+function labelActiveLink(links: NavLink[]): (NavLink & { active: boolean })[] {
+  const linksWithActiveMatch = links.map((link) => ({
+    link,
+    activeMatch: Boolean(
+      link.activeGlob && minimatch(Astro.url.pathname, link.activeGlob)
+    ),
+  }));
+
+  let longestActiveGlobMatchIndex = 0;
+  let longestActiveGlobLength = 0;
+  for (let i = 0; i < linksWithActiveMatch.length; i++) {
+    const { activeMatch, link } = linksWithActiveMatch[i];
+
+    if (
+      activeMatch &&
+      link.activeGlob &&
+      link.activeGlob.length > longestActiveGlobLength
+    ) {
+      longestActiveGlobMatchIndex = i;
+      longestActiveGlobLength = link.activeGlob.length;
+    }
+  }
+
+  return linksWithActiveMatch.map(({ link, activeMatch }, i) => ({
+    ...link,
+    active: activeMatch && i === longestActiveGlobMatchIndex,
+  }));
+}
+---
+
+<header>
+  <a class="logo-name-container" href="/">
+    <LogoName />
+  </a>
+  <nav>
+    {
+      navLinks.map((link) => (
+        <a href={link.href} class:list={{ active: link.active }}>
+          {link.text}
+        </a>
+      ))
+    }
+  </nav>
+</header>
+
+<style lang="scss">
+  @use "sass:color";
+  @use "@/scss/colors";
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 2rem;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+
+    .logo-name-container {
+      text-decoration: none;
+      font-size: 1.5em;
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+
+      a {
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.2s ease-in-out;
+
+        &.active {
+          color: colors.$link-text-color;
+
+          @media (prefers-color-scheme: dark) {
+            color: colors.$link-text-color-dark;
+          }
+        }
+
+        @media (hover: hover) {
+          &:hover {
+            color: color.adjust(colors.$link-text-color, $lightness: -10%);
+            text-decoration: underline;
+          }
+        }
+
+        &:active {
+          color: color.adjust(colors.$link-text-color, $lightness: -20%);
+        }
+
+        @media (prefers-color-scheme: dark) {
+          @media (hover: hover) {
+            &:hover {
+              color: color.adjust(
+                colors.$link-text-color-dark,
+                $lightness: 10%
+              );
+              text-decoration: underline;
+            }
+          }
+
+          &:active {
+            color: color.adjust(colors.$link-text-color-dark, $lightness: 20%);
+          }
+        }
+      }
+    }
+  }
+</style>

@@ -1,0 +1,79 @@
+---
+import type { Cover } from "@/types/Event";
+import Picture from "./Picture.astro";
+
+interface Props {
+  cover?: Cover;
+  title: string;
+  link?: string;
+}
+
+const { cover, title, link } = Astro.props;
+---
+
+<div class="event">
+  {
+    cover && (
+      <Picture
+        class="cover"
+        style={{ objectPosition: cover.position }}
+        src={cover.src}
+        alt={title}
+        dominantColor={await cover.dominantColor}
+      />
+    )
+  }
+  <div class="text-content">
+    {
+      link ? (
+        <a href={link}>
+          <h3>{title}</h3>
+        </a>
+      ) : (
+        <h3>{title}</h3>
+      )
+    }
+    <slot />
+  </div>
+</div>
+
+<style lang="scss">
+  $card-border-radius: 24px;
+  $card-padding: 16px;
+
+  .event {
+    border-width: 2px;
+    border-style: solid;
+    border-color: #f1f1f1;
+
+    @media (prefers-color-scheme: dark) {
+      border-color: #555;
+    }
+
+    border-radius: $card-border-radius;
+    overflow: hidden;
+
+    padding-bottom: $card-padding;
+
+    .cover {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    > .text-content {
+      margin-left: $card-padding;
+      margin-right: $card-padding;
+
+      h3 {
+        text-align: start;
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin: 0;
+        margin-top: 1rem;
+      }
+    }
+  }
+</style>

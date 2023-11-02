@@ -1,0 +1,41 @@
+---
+import logoSvg from "@/assets/logo.svg";
+---
+
+<div class="logo-name">
+  <img
+    src={logoSvg.src}
+    style={{ aspectRatio: `${logoSvg.width}/${logoSvg.height}` }}
+    alt="Queer Coded Logo"
+  />
+  <h1>Queer Coded</h1>
+</div>
+
+<style lang="scss">
+  .logo-name {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3em;
+
+    img {
+      height: 2em;
+    }
+
+    h1 {
+      padding: 0;
+      margin: 0;
+
+      font-size: inherit;
+      font-family: "Atyp";
+      color: #1d1e1f;
+      @media (prefers-color-scheme: dark) {
+        color: #eeeeee;
+      }
+
+      line-height: 1em;
+    }
+  }
+</style>

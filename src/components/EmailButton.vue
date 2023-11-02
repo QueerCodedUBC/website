@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import LinkButton from "./LinkButton.vue";
+import IconLinkButton from "./IconLinkButton.vue";
 
 const emailAddress = ref("");
 
@@ -37,23 +37,20 @@ function caesarCipher(s: string, offset: number): string {
 </script>
 
 <template>
-  <LinkButton
+  <IconLinkButton
     :href="`mailto:${emailAddress}`"
     new-tab
     @click.once="updateEmailAddress"
   >
-    <div class="content">
-      <span class="material-icons-round" aria-hidden="true">mail</span>
-      Email
-    </div>
-  </LinkButton>
+    <template #icon>
+      <span
+        class="material-symbols-rounded"
+        :style="{
+          fontVariationSettings: `'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24`,
+        }"
+        >mail</span
+      >
+    </template>
+    <template #default>Email</template>
+  </IconLinkButton>
 </template>
-
-<style lang="scss" scoped>
-.content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-}
-</style>

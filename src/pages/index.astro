@@ -1,11 +1,45 @@
 ---
+import EventTable from "@/components/EventTable.astro";
 import Header from "@/components/Header.astro";
-import Layout from "../layouts/Layout.astro";
+import IconLinkButton from "@/components/IconLinkButton.vue";
+import { compareEventStart, isEventInFuture } from "@/helpers/event-date-time";
+import Layout from "@/layouts/Layout.astro";
+import { EventSchema, type Event } from "@/types/Event";
+
+const events = (await Astro.glob<Event>("./events/*.mdx"))
+  .map((event) => ({
+    ...event,
+    ...event.frontmatter,
+  }))
+  // validate all events
+  .map((event) => {
+    EventSchema.parse(event);
+    return event;
+  })
+  .filter(isEventInFuture)
+  // sort events, most recent first
+  .sort((a, b) => compareEventStart(b, a));
 ---
 
 <Layout title="Queer Coded UBC">
   <div class="header-container">
     <Header />
+  </div>
+  <div class="events-container">
+    <h2>Upcoming Events</h2>
+    {
+      events.length > 0 ? (
+        <EventTable events={events} />
+      ) : (
+        <p>There are no upcoming events at this time</p>
+      )
+    }
+    <div class="button-container">
+      <IconLinkButton href="/past-events/1" color="accent">
+        <span class="material-symbols-rounded"> calendar_clock</span>
+        <span>Past Events</span>
+      </IconLinkButton>
+    </div>
   </div>
 </Layout>
 
@@ -17,5 +51,18 @@ import Layout from "../layouts/Layout.astro";
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+
+  .events-container {
+    margin: auto;
+    padding: 0 1rem;
+    text-align: center;
+    max-width: calc(3 * 320px + 2 * 1rem);
+
+    .button-container {
+      margin: auto;
+      margin-top: 2rem;
+      width: fit-content;
+    }
   }
 </style>

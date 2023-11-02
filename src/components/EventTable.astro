@@ -1,0 +1,22 @@
+---
+import { type Event } from "@/types/Event";
+import EventCard from "./EventCard.astro";
+
+interface Props {
+  events: (Event & { url?: string })[];
+}
+
+const { events } = Astro.props;
+---
+
+<div class="table">
+  {events.map((event) => <EventCard event={event} link={event.url} />)}
+</div>
+
+<style lang="scss">
+  .table {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-gap: 1rem;
+  }
+</style>

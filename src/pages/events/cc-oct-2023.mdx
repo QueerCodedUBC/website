@@ -1,0 +1,33 @@
+---
+name: Colourful Conversations October
+description:
+  "Come play board games and eat pastries with us. Get the chance to meet with Computer Science professors and other students. The event provides a safe space for LBGTQ+ identities in Computer Science and adjacent fields, but is always welcoming of all attendees, regardless of your identity and major.
+
+  Our guests are Professor Paul Carter (Computer Science Education), and Professor William Bowman (Programming Languages)! Join us for some great games, food, and conversations. Talk to both peers and professors.
+
+  Sign up at: https://ubc.ca1.qualtrics.com/jfe/form/SV_8iBG72jjsRW4TcO (max capacity 40 attendees)
+  If the sign up form is full, please sign up on our waitlist: https://ubc.ca1.qualtrics.com/jfe/form/SV_a3seTINEYfHDPNk (We will inform you if space opens up.)"
+date:
+  year: 2023
+  month: 10
+  day: 30
+startTime:
+  hour: 16
+  minute: 0
+endTime:
+  hour: 18
+  minute: 0
+location: ICICS X860
+signupLink: https://ubc.ca1.qualtrics.com/jfe/form/SV_8iBG72jjsRW4TcO
+---
+
+import { getDominantColor } from "@/helpers/getDominantColor";
+import { getRootUrl } from "@/helpers/getRootUrl";
+import coverSrc from "@/assets/events/QC_CC_Oct_2023.png";
+
+export const cover = {
+  src: coverSrc,
+  dominantColor: getDominantColor(
+    new URL("src/assets/events/QC_CC_Oct_2023.png", getRootUrl(import.meta.url))
+  ),
+};

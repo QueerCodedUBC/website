@@ -1,0 +1,45 @@
+---
+import Layout from "./Layout.astro";
+
+const { frontmatter } = Astro.props;
+
+const html = (await Astro.slots.render("default")).replace(
+  /((ht|f)tps?:\/\/[^\"<]*?)(?=\s|$|<\/[^a]>)/g,
+  '<a href="$1" target="_blank">$1</a>'
+);
+---
+
+<Layout title={frontmatter.name} showTopBar>
+  <div class="content">
+    <Fragment set:html={html} />
+  </div>
+</Layout>
+
+<style lang="scss">
+  .content {
+    margin: auto;
+    padding: 1rem 2rem;
+    max-width: 1200px;
+    word-break: break-word;
+
+    @media (max-width: 600px) {
+      padding: 1rem;
+    }
+
+    :global(img) {
+      margin: auto;
+      max-width: 500px;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    :global(p) {
+      white-space: pre-wrap;
+    }
+
+    > :global(* + *) {
+      margin-top: 1rem;
+    }
+  }
+</style>

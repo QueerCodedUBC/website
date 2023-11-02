@@ -70,11 +70,22 @@ function labelActiveLink(links: NavLink[]): (NavLink & { active: boolean })[] {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 
     padding: 2rem;
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
+    box-sizing: border-box;
+
+    @media (max-width: 600px) {
+      padding: 1.5rem;
+    }
+
+    @media (max-width: 500px) {
+      flex-direction: column;
+      gap: 1rem;
+    }
 
     .logo-name-container {
       text-decoration: none;

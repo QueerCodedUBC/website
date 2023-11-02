@@ -5,12 +5,12 @@ export interface LinkButtonProps {
   color?: "white" | "accent";
   square?: boolean;
   download?: string;
+  ariaLabel?: string;
+  disabled?: boolean;
 }
 
 withDefaults(defineProps<LinkButtonProps>(), {
-  newTab: false,
   color: "white",
-  square: false,
 });
 
 const emit = defineEmits<{
@@ -20,11 +20,12 @@ const emit = defineEmits<{
 
 <template>
   <a
-    :class="[color, { square }]"
+    :class="[color, { square }, { disabled }]"
     rel="noopener noreferrer"
     :href="href"
     :target="newTab ? '_blank' : '_self'"
     :download="download"
+    :aria-label="ariaLabel"
   >
     <slot />
   </a>
@@ -50,6 +51,11 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
 
   &.square {
     width: 46px;

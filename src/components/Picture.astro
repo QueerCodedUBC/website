@@ -8,8 +8,9 @@ interface Props {
     | Promise<{
         default: ImageMetadata;
       }>;
-  dominantColor: string;
+  dominantColor: string | Promise<string>;
   alt: string;
+  position?: string;
   [key: string]: any;
 }
 
@@ -23,7 +24,7 @@ const IMAGE_SIZES = [
   128, 256, 384, 640, 750, 828, 1080, 1200, 1920, 2048, 3840,
 ];
 
-const { src, dominantColor, ...attrs } = Astro.props;
+const { src, dominantColor, position, ...attrs } = Astro.props;
 
 const formats: Format[] = [
   { format: "avif", type: "image/avif" },
@@ -70,8 +71,13 @@ const safeSrcObj =
     width={safeSrcObj.width}
     height={safeSrcObj.height}
     {...attrs}
-    style={dominantColor && {
-      backgroundColor: dominantColor,
+    style={{
+      ...(position && {
+        objectPosition: position,
+      }),
+      ...(dominantColor && {
+        backgroundColor: await dominantColor,
+      }),
     }}
   />
 </picture>

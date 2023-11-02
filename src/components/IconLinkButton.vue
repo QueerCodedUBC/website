@@ -1,7 +1,16 @@
 <script setup lang="ts">
 import LinkButton, { type LinkButtonProps } from "./LinkButton.vue";
 
-defineProps<LinkButtonProps>();
+withDefaults(
+  defineProps<
+    LinkButtonProps & {
+      iconPosition?: "left" | "right";
+    }
+  >(),
+  {
+    iconPosition: "left",
+  }
+);
 </script>
 
 <template>
@@ -11,10 +20,16 @@ defineProps<LinkButtonProps>();
     :new-tab="newTab"
     :square="square"
     :download="download"
+    :aria-label="ariaLabel"
+    :disabled="disabled"
   >
-    <div class="content">
+    <div v-if="iconPosition === 'left'" class="content">
       <slot name="icon" />
       <slot />
+    </div>
+    <div v-else class="content">
+      <slot />
+      <slot name="icon" />
     </div>
   </LinkButton>
 </template>

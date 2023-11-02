@@ -61,7 +61,19 @@ const socialLinks: SocialLink[] = [
     text-align: center;
 
     .logo-name-container {
-      font-size: 100px;
+      font-size: 90px;
+
+      @media (max-width: 1024px) {
+        font-size: 80px;
+      }
+
+      @media (max-width: 768px) {
+        font-size: 60px;
+      }
+
+      @media (max-width: 425px) {
+        font-size: 40px;
+      }
     }
 
     p {

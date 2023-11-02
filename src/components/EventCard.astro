@@ -1,10 +1,9 @@
 ---
-import { eventDateTimeToDate } from "@/helpers/event-date-time";
+import { isEventInFuture } from "@/helpers/event-date-time";
 import type { Event } from "@/types/Event";
-import { getVtimezoneComponent } from "@touch4it/ical-timezones";
-import ical from "ical-generator";
 import Card from "./Card.astro";
-import IconLinkButton from "./IconLinkButton.vue";
+import EventButtons from "./EventButtons.astro";
+import EventInfo from "./EventInfo.astro";
 
 interface Props {
   event: Event;
@@ -14,77 +13,19 @@ interface Props {
 
 const { event, link, showYear } = Astro.props;
 
-const startDate = eventDateTimeToDate(event.date, event.startTime);
-const endDate = eventDateTimeToDate(event.date, event.endTime);
-
-const dateString = startDate.toLocaleDateString("en-US", {
-  month: "short",
-  day: "numeric",
-  year: showYear ? "numeric" : undefined,
-});
-const startTimeString = startDate.toLocaleTimeString("en-US", {
-  hour: "numeric",
-  minute: "numeric",
-});
-const endTimeString = endDate.toLocaleTimeString("en-US", {
-  hour: "numeric",
-  minute: "numeric",
-});
-const timeString = `${startTimeString} - ${endTimeString}`;
-
-const cal = ical();
-cal.timezone({ name: null, generator: getVtimezoneComponent });
-cal.createEvent({
-  start: startDate,
-  end: endDate,
-  summary: event.name,
-  description: event.description,
-  organizer: "Queer Coded UBC <queercodedubc@gmail.com>",
-  url: new URL(link!, Astro.url).toString(),
-  location: event.location,
-  timezone: "America/Vancouver",
-});
-const icalUrlString = `data:text/calendar;charset=utf-8,${encodeURIComponent(
-  cal.toString()
-)}`;
+const isPastEvent = !isEventInFuture(event);
 ---
 
 <Card cover={event.cover} title={event.name} link={link}>
   <div class="content">
-    <div class="row info">
-      <span class="material-symbols-rounded">schedule</span>
-      <div class="row wrap">
-        <span>{dateString}&nbsp;</span>
-        <span>{timeString}</span>
-      </div>
-    </div>
-    <div class="row info">
-      <span class="material-symbols-rounded">location_on</span>
-      <span>{event.location}</span>
-    </div>
-    <div class="buttons">
-      <IconLinkButton
-        href={icalUrlString}
-        color="accent"
-        newTab
-        square
-        download={`${event.name.replace(/[^a-zA-Z\d]/g, "-")}.ics`}
-      >
-        <span slot="icon" class="material-symbols-rounded">
-          calendar_add_on
-        </span>
-      </IconLinkButton>
-      {
-        event.signupLink && (
-          <IconLinkButton href={event.signupLink} color="accent" newTab>
-            <span slot="icon" class="material-symbols-rounded">
-              edit_note
-            </span>
-            <span>Sign Up</span>
-          </IconLinkButton>
-        )
-      }
-    </div>
+    <EventInfo {...event} showYear={showYear} />
+    {
+      !isPastEvent && (
+        <div class="buttons">
+          <EventButtons {...event} link={link} />
+        </div>
+      )
+    }
   </div>
 </Card>
 
@@ -93,27 +34,11 @@ const icalUrlString = `data:text/calendar;charset=utf-8,${encodeURIComponent(
     margin-top: 0.5rem;
     text-align: start;
 
-    .row {
-      display: flex;
-      align-items: center;
-      gap: 0.2rem;
-
-      &.wrap {
-        flex-wrap: wrap;
-      }
-
-      &.info {
-        margin-top: 0.5rem;
-      }
-    }
-
     .buttons {
       margin-top: 0.5rem;
 
       display: flex;
       justify-content: flex-end;
-      flex-wrap: wrap;
-      gap: 0.5rem;
     }
   }
 </style>

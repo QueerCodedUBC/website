@@ -1,0 +1,69 @@
+---
+import { eventDateTimeToDate } from "@/helpers/event-date-time";
+import type { Date, Time } from "@/types/Event";
+
+interface Props {
+  date: Date;
+  startTime: Time;
+  endTime: Time;
+  showYear?: boolean;
+
+  location: string;
+}
+
+const { date, startTime, endTime, showYear, location } = Astro.props;
+
+const startDate = eventDateTimeToDate(date, startTime);
+const endDate = eventDateTimeToDate(date, endTime);
+
+const dateString = startDate.toLocaleDateString("en-US", {
+  month: "short",
+  day: "numeric",
+  year: showYear ? "numeric" : undefined,
+});
+const startTimeString = startDate.toLocaleTimeString("en-US", {
+  hour: "numeric",
+  minute: "numeric",
+});
+const endTimeString = endDate.toLocaleTimeString("en-US", {
+  hour: "numeric",
+  minute: "numeric",
+});
+const timeString = `${startTimeString} - ${endTimeString}`;
+---
+
+<div>
+  <div class="row info">
+    <span class="material-symbols-rounded" aria-label="time">schedule</span>
+    <div class="row wrap no-gap">
+      <span>{dateString}&nbsp;</span>
+      <span>{timeString}</span>
+    </div>
+  </div>
+  <div class="row info">
+    <span class="material-symbols-rounded" aria-label="location"
+      >location_on</span
+    >
+    <span>{location}</span>
+  </div>
+</div>
+
+<style lang="scss">
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+
+    &.no-gap {
+      gap: 0;
+    }
+
+    &.wrap {
+      flex-wrap: wrap;
+    }
+
+    &.info {
+      margin-top: 0.5rem;
+    }
+  }
+</style>

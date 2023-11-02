@@ -4,13 +4,18 @@ import EventCard from "./EventCard.astro";
 
 interface Props {
   events: (Event & { url?: string })[];
+  showYear?: boolean;
 }
 
-const { events } = Astro.props;
+const { events, showYear } = Astro.props;
 ---
 
 <div class="table">
-  {events.map((event) => <EventCard event={event} link={event.url} />)}
+  {
+    events.map((event) => (
+      <EventCard event={event} link={event.url} showYear={showYear} />
+    ))
+  }
 </div>
 
 <style lang="scss">

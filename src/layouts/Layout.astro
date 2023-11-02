@@ -106,6 +106,7 @@ const { title, showTopBar } = Astro.props;
   }
 
   a {
+    word-wrap: break-word;
     color: colors.$link-text-color;
 
     @media (prefers-color-scheme: dark) {
@@ -119,6 +120,10 @@ const { title, showTopBar } = Astro.props;
         color: colors.$link-text-color-visited-dark;
       }
     }
+  }
+
+  [class^="material-symbols-"] {
+    user-select: none;
   }
 
   input,

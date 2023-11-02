@@ -16,8 +16,8 @@ const { cover, title, link } = Astro.props;
     cover && (
       <Picture
         class="cover"
-        style={{ objectPosition: cover.position }}
         src={cover.src}
+        objectPosition={cover.position}
         alt={title}
         dominantColor={await cover.dominantColor}
       />

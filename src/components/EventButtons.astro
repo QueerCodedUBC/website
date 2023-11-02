@@ -1,0 +1,92 @@
+---
+import { eventDateTimeToDate } from "@/helpers/event-date-time";
+import type { Date, Time } from "@/types/Event";
+import { getVtimezoneComponent } from "@touch4it/ical-timezones";
+import ical from "ical-generator";
+import IconLinkButton from "./IconLinkButton.vue";
+
+interface Props {
+  date: Date;
+  startTime: Time;
+  endTime: Time;
+  name: string;
+  description?: string;
+  location: string;
+  signupLink?: string;
+
+  link?: string;
+  wide?: boolean;
+  hideIfPast?: boolean;
+}
+
+const {
+  date,
+  startTime,
+  endTime,
+  name,
+  description,
+  location,
+  link,
+  signupLink,
+  wide,
+  hideIfPast,
+} = Astro.props;
+
+const startDate = eventDateTimeToDate(date, startTime);
+const endDate = eventDateTimeToDate(date, endTime);
+
+const hide = hideIfPast && startDate.getTime() < new Date().getTime();
+
+const cal = ical();
+cal.timezone({ name: null, generator: getVtimezoneComponent });
+cal.createEvent({
+  start: startDate,
+  end: endDate,
+  summary: name,
+  description: description,
+  organizer: "Queer Coded UBC <queercodedubc@gmail.com>",
+  url: new URL(link!, Astro.url).toString(),
+  location: location,
+  timezone: "America/Vancouver",
+});
+const icalUrlString = `data:text/calendar;charset=utf-8,${encodeURIComponent(
+  cal.toString()
+)}`;
+---
+
+{
+  !hide && (
+    <div class="buttons">
+      <IconLinkButton
+        href={icalUrlString}
+        color="accent"
+        newTab
+        square={!wide}
+        download={`${name.replace(/[^a-zA-Z\d]/g, "-")}.ics`}
+        ariaLabel="Add to Calendar"
+      >
+        <span slot="icon" class="material-symbols-rounded">
+          {" "}
+          calendar_add_on
+        </span>
+        {wide && <span>Add to Calendar</span>}
+      </IconLinkButton>
+      {signupLink && (
+        <IconLinkButton href={signupLink} color="accent" newTab>
+          <span slot="icon" class="material-symbols-rounded">
+            edit_note
+          </span>
+          <span>Sign Up</span>
+        </IconLinkButton>
+      )}
+    </div>
+  )
+}
+
+<style lang="scss">
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+</style>

@@ -20,6 +20,7 @@ const html = (await Astro.slots.render("default")).replace(
     margin: auto;
     padding: 1rem 2rem;
     max-width: 1200px;
+    box-sizing: border-box;
     word-break: break-word;
 
     @media (max-width: 600px) {

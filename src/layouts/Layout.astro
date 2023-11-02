@@ -14,11 +14,51 @@ const { title, showTopBar } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- TODO: open graph -->
+    <meta
+      name="description"
+      content="Queer Coded is a group for LGBTQ2IA+ students and allies interested in Computer Science at UBC. Our goal is to create a safe and welcoming collective that fosters community building and empowers and supports students, while increasing the visibility of LGBTQ2IA+ people in tech."
+    />
+
+    <meta name="theme-color" content="#fffcfc" />
+    <meta
+      name="theme-color"
+      content="#200000"
+      media="(prefers-color-scheme: dark)"
+    />
+
+    <meta property="og:title" content="Queer Coded" />
+    <meta
+      property="og:description"
+      content="A group for LGBTQ2IA+ students and allies interested in Computer Science at UBC."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.site!.toString()} />
+    <meta
+      property="og:image"
+      content={new URL("/open-graph.png", Astro.site).toString()}
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="675" />
+    <meta
+      property="og:image"
+      content={new URL("/open-graph-square.png", Astro.site).toString()}
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="1200" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:image"
+      content={new URL("/open-graph.png", Astro.site).toString()}
+    />
+    <meta name="twitter:title" content="Queer Coded" />
+    <meta
+      name="twitter:description"
+      content="A group for LGBTQ2IA+ students and allies interested in Computer Science at UBC."
+    />
 
     <title>{title}</title>
   </head>

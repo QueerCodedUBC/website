@@ -32,7 +32,7 @@ export async function getStaticPaths({
     // sort events, most recent first
     .sort((a, b) => compareEventStart(b, a));
 
-  return paginate(events, { pageSize: 10 });
+  return paginate(events, { pageSize: 9 });
 }
 
 const { page } = Astro.props;

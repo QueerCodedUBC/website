@@ -1,0 +1,60 @@
+---
+layout: "@/layouts/Event.astro"
+
+name: Colourful Conversations November
+description: |-
+  Come play board games and eat pastries with us. Get the chance to meet with Computer Science professors and other students. The event provides a safe space for LBGTQ+ identities in Computer Science and adjacent fields, but is always welcoming of all attendees, regardless of your identity and major.
+
+  Our guests are Professor Megan Allen, and Professor Karon MacLean! Join us for some great games, food, and conversations. Talk to both peers and professors.
+
+# Sign up at: https://ubc.ca1.qualtrics.com/jfe/form/SV_8iBG72jjsRW4TcO (max capacity 40 attendees)
+# If the sign up form is full, please sign up on our waitlist: https://ubc.ca1.qualtrics.com/jfe/form/SV_a3seTINEYfHDPNk (We will inform you if space opens up.)
+date:
+  year: 2023
+  month: 11
+  day: 30
+startTime:
+  hour: 15
+  minute: 0
+endTime:
+  hour: 17
+  minute: 0
+location: ICICS X860
+# signupLink: https://ubc.ca1.qualtrics.com/jfe/form/SV_8iBG72jjsRW4TcO
+---
+
+import EventButtons from "@/components/EventButtons.astro";
+import EventInfo from "@/components/EventInfo.astro";
+
+{/* import Picture from "@/components/Picture.astro";
+import { getDominantColor } from "@/helpers/getDominantColor";
+import { getRootUrl } from "@/helpers/getRootUrl";
+import coverSrc from "@/assets/events/QC_CC_Oct_2023.png";
+
+export const cover = {
+  src: coverSrc,
+  dominantColor: getDominantColor(
+    new URL("src/assets/events/QC_CC_Oct_2023.png", getRootUrl(import.meta.url))
+  ),
+};
+
+<Picture
+  src={cover.src}
+  alt={frontmatter.title}
+  position={cover.position}
+  dominantColor={cover.dominantColor}
+/>
+*/}
+
+# {frontmatter.name}
+
+<EventInfo {...frontmatter} showYear={true} />
+
+<EventButtons {...frontmatter} link={url} wide hideIfPast />
+
+Come play board games and eat pastries with us. Get the chance to meet with Computer Science professors and other students. The event provides a safe space for LBGTQ+ identities in Computer Science and adjacent fields, but is always welcoming of all attendees, regardless of your identity and major.
+
+Our guests are [Megan Allen](https://www.cs.ubc.ca/people/meghan-allen), and [Karon MacLean](https://www.cs.ubc.ca/people/karon-maclean)! Join us for some great games, food, and conversations. Talk to both peers and professors.
+
+{/* Sign up at: https://ubc.ca1.qualtrics.com/jfe/form/SV_8iBG72jjsRW4TcO (max capacity 40 attendees)
+If the sign up form is full, please sign up on our waitlist: https://ubc.ca1.qualtrics.com/jfe/form/SV_a3seTINEYfHDPNk (We will inform you if space opens up.) */}

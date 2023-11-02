@@ -1,0 +1,127 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- TODO: open graph -->
+
+    <title>{title}</title>
+  </head>
+  <body ontouchstart="">
+    <slot />
+  </body>
+</html>
+
+<style lang="scss" is:global>
+  // fonts
+  @use "inter-ui/default" with (
+    $inter-font-display: block,
+    $inter-font-path: "inter-ui/Inter (web hinted latin)"
+  );
+  @use "inter-ui/variable" with (
+    $inter-font-display: block,
+    $inter-font-path: "inter-ui/Inter (web latin)"
+  );
+
+  @include default.all;
+  @include variable.default;
+
+  @font-face {
+    font-family: "Atyp";
+    src:
+      local("Atyp Text Semibold"),
+      local("Atyp-Text-Semibold"),
+      url("@/assets/fonts/AtypText-Semibold.woff2") format("woff2"),
+      url("@/assets/fonts/AtypText-Semibold.woff") format("woff"),
+      url("@/assets/fonts/AtypText-Semibold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+</style>
+
+<style lang="scss" is:global>
+  @use "@/scss/colors";
+  @use "material-icons/iconfont/material-icons.css";
+
+  html {
+    scroll-behavior: smooth;
+    overflow: auto;
+    overflow: overlay;
+
+    font-family: "Inter", Arial, Helvetica, system-ui, sans-serif;
+    @supports (font-variation-settings: normal) {
+      font-family: "Inter var", Inter, Helvetica, Arial, sans-serif;
+    }
+    font-size: 16px;
+    @media (max-width: 420px) {
+      font-size: 14px;
+    }
+
+    color: colors.$primary-text-color;
+    background-color: colors.$background;
+
+    @media (prefers-color-scheme: dark) {
+      color: colors.$primary-text-color-dark;
+      background-color: colors.$background-dark;
+    }
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+
+    min-height: 100lvh;
+
+    padding: env(safe-area-inset-top) env(safe-area-inset-right)
+      env(safe-area-inset-bottom) env(safe-area-inset-left);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+
+    > main {
+      flex-grow: 1;
+    }
+  }
+
+  a {
+    color: colors.$link-text-color;
+
+    @media (prefers-color-scheme: dark) {
+      color: colors.$link-text-color-dark;
+    }
+
+    &:visited {
+      color: colors.$link-text-color-visited;
+
+      @media (prefers-color-scheme: dark) {
+        color: colors.$link-text-color-visited-dark;
+      }
+    }
+  }
+
+  .icon {
+    user-select: none;
+  }
+
+  input,
+  textarea,
+  button,
+  select,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+</style>

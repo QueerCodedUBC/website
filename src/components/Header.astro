@@ -1,0 +1,108 @@
+---
+import logoSvg from "@/assets/logo.svg";
+import EmailButton from "./EmailButton.vue";
+import type { Platform } from "./SocialLinkButton.astro";
+import SocialLinkButton from "./SocialLinkButton.astro";
+
+interface SocialLink {
+  platform: Platform;
+  link: string;
+}
+
+const socialLinks: SocialLink[] = [
+  {
+    platform: "instagram",
+    link: "https://www.instagram.com/qcubc/",
+  },
+  {
+    platform: "discord",
+    link: "https://discord.gg/rDXX7CyVHU",
+  },
+  {
+    platform: "facebook",
+    link: "https://www.facebook.com/qcubc/",
+  },
+];
+---
+
+<div class="header">
+  <div class="logo-name">
+    <img
+      src={logoSvg.src}
+      style={{ aspectRatio: `${logoSvg.width}/${logoSvg.height}` }}
+      alt="Queer Coded Logo"
+    />
+    <h1>Queer Coded</h1>
+  </div>
+  <p>
+    Queer Coded is a group for LGBTQ2IA+ students and allies interested in
+    Computer Science at UBC. Our goal is to create a safe and welcoming
+    collective that fosters community building and empowers and supports
+    students, while increasing the visibility of LGBTQ2IA+ people in tech.
+  </p>
+  <div>
+    <h3>Find us on</h3>
+    <div class="social-links">
+      {
+        socialLinks.map(({ platform, link }) => (
+          <SocialLinkButton platform={platform} href={link} />
+        ))
+      }
+    </div>
+  </div>
+  <div>
+    <h3>Contact us</h3>
+    <EmailButton client:idle />
+  </div>
+</div>
+
+<style lang="scss">
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin: 2rem;
+    text-align: center;
+
+    .logo-name {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 0.3em;
+
+      font-size: 100px;
+
+      img {
+        height: 2em;
+      }
+
+      h1 {
+        padding: 0;
+        margin: 0;
+
+        font-size: inherit;
+        font-family: "Atyp";
+        color: #1d1e1f;
+
+        line-height: 1em;
+      }
+    }
+
+    p {
+      margin: 0;
+      text-wrap: pretty;
+      max-width: 800px;
+    }
+
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: center;
+      gap: 1rem;
+    }
+  }
+</style>

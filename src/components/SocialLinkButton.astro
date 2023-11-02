@@ -1,0 +1,36 @@
+---
+import discordSvg from "@/assets/social/discord.svg";
+import facebookSvg from "@/assets/social/facebook.svg";
+import instagramSvg from "@/assets/social/instagram.svg";
+import LinkButton from "./LinkButton.vue";
+
+export type Platform = "discord" | "facebook" | "instagram";
+
+interface Props {
+  href: string;
+  platform: Platform;
+}
+
+const { href, platform } = Astro.props;
+
+const platformSvg = {
+  discord: discordSvg,
+  facebook: facebookSvg,
+  instagram: instagramSvg,
+}[platform];
+---
+
+<LinkButton href={href}>
+  <img
+    src={platformSvg.src}
+    style={{ aspectRatio: `${platformSvg.width}/${platformSvg.height}` }}
+    alt={platform}
+  />
+</LinkButton>
+
+<style lang="scss">
+  img {
+    height: 100%;
+    object-fit: contain;
+  }
+</style>

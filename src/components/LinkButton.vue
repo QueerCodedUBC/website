@@ -26,6 +26,7 @@ const emit = defineEmits<{
     :target="newTab ? '_blank' : '_self'"
     :download="download"
     :aria-label="ariaLabel"
+    :tabindex="disabled ? -1 : 0"
   >
     <slot />
   </a>
@@ -54,6 +55,7 @@ a {
 
   &.disabled {
     pointer-events: none;
+    user-select: none;
     opacity: 0.5;
   }
 

@@ -125,6 +125,7 @@ function labelActiveLink(links: NavLink[]): (NavLink & { active: boolean })[] {
 
         &:active {
           color: color.adjust(colors.$link-text-color, $lightness: -20%);
+          text-decoration: underline;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -134,7 +135,6 @@ function labelActiveLink(links: NavLink[]): (NavLink & { active: boolean })[] {
                 colors.$link-text-color-dark,
                 $lightness: 10%
               );
-              text-decoration: underline;
             }
           }
 

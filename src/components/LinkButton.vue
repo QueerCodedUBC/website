@@ -64,6 +64,7 @@ a {
   &.white {
     color: colors.$primary-text-color !important;
     background-color: #fff;
+    border: 1px solid #ebebeb;
 
     @media (hover: hover) {
       &:hover {

@@ -85,6 +85,7 @@ function labelActiveLink(links: NavLink[]): (NavLink & { active: boolean })[] {
     @media (max-width: 500px) {
       flex-direction: column;
       gap: 1rem;
+      text-align: center;
     }
 
     .logo-name-container {
@@ -94,7 +95,13 @@ function labelActiveLink(links: NavLink[]): (NavLink & { active: boolean })[] {
 
     nav {
       display: flex;
+      flex-wrap: wrap;
       gap: 2rem;
+
+      @media (max-width: 190px) {
+        justify-content: center;
+        gap: 0.5rem;
+      }
 
       a {
         text-decoration: none;

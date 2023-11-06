@@ -4,7 +4,7 @@ export interface LinkButtonProps {
   newTab?: boolean;
   color?: "white" | "accent";
   square?: boolean;
-  download?: string;
+  download?: string | boolean;
   ariaLabel?: string;
   disabled?: boolean;
 }
@@ -24,9 +24,11 @@ const emit = defineEmits<{
     rel="noopener noreferrer"
     :href="href"
     :target="newTab ? '_blank' : '_self'"
-    :download="download"
+    :download="
+      download === true ? '' : download === false ? undefined : download
+    "
     :aria-label="ariaLabel"
-    :tabindex="disabled ? -1 : 0"
+    :tabindex="disabled ? -1 : undefined"
   >
     <slot />
   </a>

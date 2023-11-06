@@ -1,5 +1,6 @@
 ---
 import { type Event } from "@/types/Event";
+import CardTable from "./CardTable.astro";
 import EventCard from "./EventCard.astro";
 
 interface Props {
@@ -10,20 +11,10 @@ interface Props {
 const { events, showYear } = Astro.props;
 ---
 
-<div class="table">
+<CardTable>
   {
     events.map((event) => (
       <EventCard event={event} link={event.url} showYear={showYear} />
     ))
   }
-</div>
-
-<style lang="scss">
-  .table {
-    margin: auto;
-    display: grid;
-    grid-gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
-    max-width: calc(3 * min(100%, 320px) + 2 * 1rem);
-  }
-</style>
+</CardTable>

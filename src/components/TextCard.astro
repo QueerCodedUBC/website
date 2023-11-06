@@ -1,0 +1,45 @@
+---
+import Card from "./Card.astro";
+
+interface Props {
+  title: string;
+  link?: string;
+}
+
+const { title, link } = Astro.props;
+---
+
+<Card>
+  <div class="text-card">
+    <slot name="top" />
+    <div class="text-content">
+      {
+        link ? (
+          <a href={link}>
+            <h3>{title}</h3>
+          </a>
+        ) : (
+          <h3>{title}</h3>
+        )
+      }
+      <slot />
+    </div>
+  </div>
+</Card>
+
+<style lang="scss">
+  .text-card {
+    > .text-content {
+      margin-left: var(--card-padding);
+      margin-right: var(--card-padding);
+
+      h3 {
+        text-align: start;
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin: 0;
+        margin-top: 1rem;
+      }
+    }
+  }
+</style>

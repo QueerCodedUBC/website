@@ -1,7 +1,7 @@
 ---
 import { isEventInFuture } from "@/helpers/event-date-time";
 import type { Event } from "@/types/Event";
-import Card from "./Card.astro";
+import CoverCard from "./CoverCard.astro";
 import EventButtons from "./EventButtons.astro";
 import EventInfo from "./EventInfo.astro";
 
@@ -16,7 +16,7 @@ const { event, link, showYear } = Astro.props;
 const isPastEvent = !isEventInFuture(event);
 ---
 
-<Card cover={event.cover} title={event.name} link={link}>
+<CoverCard cover={event.cover} title={event.name} link={link}>
   <div class="content">
     <EventInfo {...event} showYear={showYear} />
     {
@@ -27,7 +27,7 @@ const isPastEvent = !isEventInFuture(event);
       )
     }
   </div>
-</Card>
+</CoverCard>
 
 <style lang="scss">
   .content {

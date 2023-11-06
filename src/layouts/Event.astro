@@ -9,7 +9,7 @@ const html = (await Astro.slots.render("default")).replace(
 );
 ---
 
-<Layout title={frontmatter.name} showTopBar>
+<Layout title={`${frontmatter.name} - Queer Coded UBC`} showTopBar>
   <div class="content">
     <Fragment set:html={html} />
   </div>

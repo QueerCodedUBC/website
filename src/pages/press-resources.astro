@@ -1,0 +1,166 @@
+---
+import CardTable from "@/components/CardTable.astro";
+import IconLinkButton from "@/components/IconLinkButton.vue";
+import TextCard from "@/components/TextCard.astro";
+import Layout from "@/layouts/Layout.astro";
+
+interface Asset {
+  /**
+   * The file name of the asset, including the extension but not the folder.
+   */
+  cover: string;
+  coverTheme?: "light" | "dark";
+  title: string;
+  downloads: AssetDownload[];
+}
+
+interface AssetDownload {
+  name: string;
+  /**
+   * The file name of the asset, including the extension but not the folder.
+   */
+  fileName: string;
+}
+
+const assets: Asset[] = [
+  {
+    cover: "qc-logo-light-padded.svg",
+    title: "Logo on light",
+    downloads: [
+      {
+        name: "SVG",
+        fileName: "qc-logo-light.svg",
+      },
+      {
+        name: "SVG with padding",
+        fileName: "qc-logo-light-padded.svg",
+      },
+      {
+        name: "PNG",
+        fileName: "qc-logo-light.png",
+      },
+      {
+        name: "PNG with padding",
+        fileName: "qc-logo-light-padded.png",
+      },
+    ],
+  },
+  {
+    cover: "qc-logo-dark-padded.svg",
+    coverTheme: "dark",
+    title: "Logo on dark",
+    downloads: [
+      {
+        name: "SVG",
+        fileName: "qc-logo-dark.svg",
+      },
+      {
+        name: "SVG with padding",
+        fileName: "qc-logo-dark-padded.svg",
+      },
+      {
+        name: "PNG",
+        fileName: "qc-logo-dark.png",
+      },
+      {
+        name: "PNG with padding",
+        fileName: "qc-logo-dark-padded.png",
+      },
+    ],
+  },
+  {
+    cover: "qc-logomark-padded.svg",
+    title: "Logomark",
+    downloads: [
+      {
+        name: "SVG",
+        fileName: "qc-logomark.svg",
+      },
+      {
+        name: "SVG with padding",
+        fileName: "qc-logomark-padded.svg",
+      },
+      {
+        name: "PNG",
+        fileName: "qc-logomark.png",
+      },
+      {
+        name: "PNG with padding",
+        fileName: "qc-logomark-padded.png",
+      },
+    ],
+  },
+];
+---
+
+<Layout title="Press Resources - Queer Coded UBC" showTopBar>
+  <div class="container">
+    <h1>Press Resources</h1>
+    <h2>Brand Assets</h2>
+    <div class="card-table-container">
+      <CardTable>
+        {
+          assets.map((asset) => (
+            <TextCard title={asset.title}>
+              <img
+                slot="top"
+                class="cover"
+                class:list={{ dark: asset.coverTheme === "dark" }}
+                src={`/brand-assets/${asset.cover}`}
+                alt={asset.title}
+              />
+              <div class="downloads">
+                {asset.downloads.map((download) => (
+                  <IconLinkButton
+                    href={`/brand-assets/${download.fileName}`}
+                    color="accent"
+                    download
+                  >
+                    <span slot="icon" class="material-symbols-rounded">
+                      download
+                    </span>
+                    <span>{download.name}</span>
+                  </IconLinkButton>
+                ))}
+              </div>
+            </TextCard>
+          ))
+        }
+      </CardTable>
+    </div>
+  </div>
+</Layout>
+
+<style lang="scss">
+  @use "@/scss/colors";
+
+  .container {
+    margin: auto;
+    text-align: center;
+
+    .card-table-container {
+      padding: 0 1rem;
+
+      .cover {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        object-fit: contain;
+        object-position: center;
+        background-color: #fff;
+
+        &.dark {
+          background-color: #000;
+        }
+      }
+
+      .downloads {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+    }
+  }
+</style>

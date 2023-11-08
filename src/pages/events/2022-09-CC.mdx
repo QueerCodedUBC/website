@@ -1,0 +1,56 @@
+---
+layout: "@/layouts/Event.astro"
+
+name: Colourful Conversations September
+description: |
+  The CS department is hosting an event called "Colourful Conversations" where yall can come in and get to play board games and network with professors and just have a good time.
+
+  The goal is to let professors get to know their LGBTQ+ students better and for LGBTQ+ students to feel more comfortable interacting with their CS professors on a personal level, since LGBTQ+ students statistically don't interact with their professors as much.
+
+  We  created this event with LGBTQ+ in Computer Science and adjacent fields (e.g COGS and CPEN) in mind. But despite that being queer and in CS is not a requirement! Everyone is welcome. We don't have any way to check regardless. 
+
+  Here is the sign up link: https://ubc.ca1.qualtrics.com/jfe/form/SV_9F6WR1nARnzoWLs
+
+  For this round of Colorful Conversations we've invited Joanna McGrenere and Karina Mochetti. In the future it might be different professors. Yes there will be FREE pastries and coffee
+date:
+  year: 2022
+  month: 9
+  day: 28
+startTime:
+  hour: 15
+  minute: 0
+endTime:
+  hour: 16
+  minute: 30
+location: ICICS X860
+signupLink: https://ubc.ca1.qualtrics.com/jfe/form/SV_9F6WR1nARnzoWLs
+---
+
+import EventButtons from "@/components/EventButtons.astro";
+import EventInfo from "@/components/EventInfo.astro";
+import Picture from "@/components/Picture.astro";
+import { getDominantColor } from "@/helpers/getDominantColor";
+import { getRootUrl } from "@/helpers/getRootUrl";
+import coverSrc from "@/assets/events/2022-09-CC.png";
+
+export const cover = {
+  src: coverSrc,
+  dominantColor: getDominantColor(
+    new URL("src/assets/events/2022-09-CC.png", getRootUrl(import.meta.url))
+  ),
+};
+
+<Picture
+  src={cover.src}
+  alt={frontmatter.title}
+  position={cover.position}
+  dominantColor={cover.dominantColor}
+/>
+
+# {frontmatter.name}
+
+<EventInfo {...frontmatter} showYear={true} />
+
+<EventButtons {...frontmatter} link={url} wide hideIfPast />
+
+<p>{frontmatter.description}</p>

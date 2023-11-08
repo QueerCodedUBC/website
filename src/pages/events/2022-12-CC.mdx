@@ -1,0 +1,54 @@
+---
+layout: "@/layouts/Event.astro"
+
+name: Colourful Conversations December
+description: |
+  Queer Coded is back with “Colourful Conversations” in December!
+
+  Get the opportunity to talk to peers and professors over sweet treats and board games. The event was created with LGBTQ+ identities in Computer Science and adjacent fields in mind, but is always welcoming of all attendees, regardless of if you are queer or in Computer Science. We welcome Margo Seltzer, Computer Systems professor, and Aastha Mehta, Systems, Networking, and Security professor as our guests of the month. Come enjoy free food and fun games!
+
+  Sign up here: https://ubc.ca1.qualtrics.com/jfe/form/SV_3qv6HsqicO46iSa (capacity limited to 40 attendants)
+  If the sign up is full, please sign up for the waitlist: https://ubc.ca1.qualtrics.com/jfe/form/SV_eaqFKcexWrKOL6m
+  If space becomes available, waitlist members will be informed.
+date:
+  year: 2022
+  month: 12
+  day: 7
+startTime:
+  hour: 15
+  minute: 0
+endTime:
+  hour: 17
+  minute: 0
+location: ICICS X860
+signupLink: https://ubc.ca1.qualtrics.com/jfe/form/SV_3qv6HsqicO46iSa
+---
+
+import EventButtons from "@/components/EventButtons.astro";
+import EventInfo from "@/components/EventInfo.astro";
+import Picture from "@/components/Picture.astro";
+import { getDominantColor } from "@/helpers/getDominantColor";
+import { getRootUrl } from "@/helpers/getRootUrl";
+import coverSrc from "@/assets/events/2022-12-CC.png";
+
+export const cover = {
+  src: coverSrc,
+  dominantColor: getDominantColor(
+    new URL("src/assets/events/2022-12-CC.png", getRootUrl(import.meta.url))
+  ),
+};
+
+<Picture
+  src={cover.src}
+  alt={frontmatter.title}
+  position={cover.position}
+  dominantColor={cover.dominantColor}
+/>
+
+# {frontmatter.name}
+
+<EventInfo {...frontmatter} showYear={true} />
+
+<EventButtons {...frontmatter} link={url} wide hideIfPast />
+
+<p>{frontmatter.description}</p>

@@ -1,0 +1,55 @@
+---
+layout: "@/layouts/Event.astro"
+
+name: Colourful Conversations November
+description: |
+  We are back with another round of Colourful Conversations! Come in and get to play board games and network with professors and just have a good time. As always the goal is to let professors get to know their LGBTQ+ students better and for LGBTQ+ students to network with professors in a relaxed setting. We will have free food and coffee available for attendants. 
+
+  Colourful Conversations was created with LGBTQ+ in Computer Science & adjacent fields in mind. But the event is open to everyone, queer or not.
+
+  This round we are featuring Vered Shwartz, an Artificial Intelligence professor, and Tamara Munzner, who researches Info Visualization. 
+
+  sign up here: https://ubc.ca1.qualtrics.com/jfe/form/SV_ebuDrZxLwWJ5GvA
+  Waitlist if the sign up form is full. If someone drops out, and space becomes available, waitlisters will be notified to come to the event. https://ubc.ca1.qualtrics.com/jfe/form/SV_eKI7n5JQtXRnHp4
+date:
+  year: 2022
+  month: 11
+  day: 8
+startTime:
+  hour: 17
+  minute: 0
+endTime:
+  hour: 18
+  minute: 30
+location: ICICS X860
+signupLink: https://ubc.ca1.qualtrics.com/jfe/form/SV_ebuDrZxLwWJ5GvA
+---
+
+import EventButtons from "@/components/EventButtons.astro";
+import EventInfo from "@/components/EventInfo.astro";
+import Picture from "@/components/Picture.astro";
+import { getDominantColor } from "@/helpers/getDominantColor";
+import { getRootUrl } from "@/helpers/getRootUrl";
+import coverSrc from "@/assets/events/2022-11-CC.png";
+
+export const cover = {
+  src: coverSrc,
+  dominantColor: getDominantColor(
+    new URL("src/assets/events/2022-11-CC.png", getRootUrl(import.meta.url))
+  ),
+};
+
+<Picture
+  src={cover.src}
+  alt={frontmatter.title}
+  position={cover.position}
+  dominantColor={cover.dominantColor}
+/>
+
+# {frontmatter.name}
+
+<EventInfo {...frontmatter} showYear={true} />
+
+<EventButtons {...frontmatter} link={url} wide hideIfPast />
+
+<p>{frontmatter.description}</p>

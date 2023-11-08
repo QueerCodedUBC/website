@@ -1,0 +1,63 @@
+---
+layout: "@/layouts/Event.astro"
+
+name: Colourful Conversations March
+description: |
+  Our first Colourful Conversation of the year is here!
+
+  Come enjoy some baked goods and board games while speaking to your peers and professors. Colourful Conversations aims to build a connection between professors and their LGBT+ students, providing a safe and fun environment for everyone to network. The event was created with LGBTQ+ identities in Computer Science and adjacent fields in mind, but is always welcoming of all attendees, regardless of your identity and major. 
+
+  This month, we welcome Professor Steve Wolfman, whose research focuses on Technology and Education; and Professor Rachel Pottinger, whose focus is Database Management and Mining. Get the opportunity to speak to them and exercise your board game skills and sweet tooth!
+
+  Sign up here: https://ubc.ca1.qualtrics.com/jfe/form/SV_4TUFE7ziNre7KRw (capacity limited to 40 attendants)
+  If the sign up is full, please sign up on our waitlist: https://ubc.ca1.qualtrics.com/jfe/form/SV_aeOmUaalA412EeO 
+  Waitlist members will be informed if space becomes available.
+
+  Update:
+  we have decided to postpone the Colourful Conversation event due to the weather conditions. 
+
+  Our new time is Thursday, March 9th at the same time (5-7pm). Everyone who signed up will still be on the list, however, please let us know if you cannot make this new time.
+
+  Wishing everyone a safe day. Looking forward to next week!
+date:
+  year: 2023
+  month: 3
+  day: 9
+startTime:
+  hour: 17
+  minute: 0
+endTime:
+  hour: 19
+  minute: 0
+location: ICICS X860
+signupLink: https://ubc.ca1.qualtrics.com/jfe/form/SV_4TUFE7ziNre7KRw
+---
+
+import EventButtons from "@/components/EventButtons.astro";
+import EventInfo from "@/components/EventInfo.astro";
+import Picture from "@/components/Picture.astro";
+import { getDominantColor } from "@/helpers/getDominantColor";
+import { getRootUrl } from "@/helpers/getRootUrl";
+import coverSrc from "@/assets/events/2023-03-CC.png";
+
+export const cover = {
+  src: coverSrc,
+  dominantColor: getDominantColor(
+    new URL("src/assets/events/2023-03-CC.png", getRootUrl(import.meta.url))
+  ),
+};
+
+<Picture
+  src={cover.src}
+  alt={frontmatter.title}
+  position={cover.position}
+  dominantColor={cover.dominantColor}
+/>
+
+# {frontmatter.name}
+
+<EventInfo {...frontmatter} showYear={true} />
+
+<EventButtons {...frontmatter} link={url} wide hideIfPast />
+
+<p>{frontmatter.description}</p>

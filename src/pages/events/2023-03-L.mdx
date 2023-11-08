@@ -1,0 +1,32 @@
+---
+layout: "@/layouts/Event.astro"
+
+name: Lunch with Dr Elizabeth Fischer
+description: |
+  We have another event IN ADDITION TO colourful conversations happening next week. Queer Coded and Prof Margo Seltzer are co-hosting a drop-in lunch and chat with a visiting researcher, Dr Elizabeth Fischer, on Monday, March 6th from 11am-1pm in ICCS X860. You can come by any time within that window, grab some food, and meet our guest. Sign up for the lunch here: https://ubc.ca1.qualtrics.com/jfe/form/SV_1IjsIwjNEQSb1Wu
+
+  Elizabeth will also be giving a talk later in the day, from 3pm-4pm. Her career path is super interesting, starting out with a PhD in CS (supervised by Margo!) and eventually becoming an earth scientist.
+date:
+  year: 2023
+  month: 3
+  day: 6
+startTime:
+  hour: 11
+  minute: 0
+endTime:
+  hour: 13
+  minute: 0
+location: ICICS X860
+signupLink: https://ubc.ca1.qualtrics.com/jfe/form/SV_1IjsIwjNEQSb1Wu
+---
+
+import EventButtons from "@/components/EventButtons.astro";
+import EventInfo from "@/components/EventInfo.astro";
+
+# {frontmatter.name}
+
+<EventInfo {...frontmatter} showYear={true} />
+
+<EventButtons {...frontmatter} link={url} wide hideIfPast />
+
+<p>{frontmatter.description}</p>

@@ -1,0 +1,55 @@
+---
+layout: "@/layouts/Event.astro"
+
+name: Colourful Conversations April
+description: |
+  It's time to announce our next iteration of Colourful Conversations! Some of you might already have a clue of our guests this time.
+
+  Come talk to peers and professors over lunch and board games. The event was created with LGBTQ+ identities in Computer Science and adjacent fields in mind, but is always welcoming of all attendees, regardless of your identity and major.
+
+  Professor Gregor Kiczales, programming language design, and, Professor Dongwook Yoon, human-computer interaction, are our two guests of the month! Get the chance to meet them while enjoying some free lunch at our next event.
+
+  Sign up at: https://ubc.ca1.qualtrics.com/jfe/form/SV_6icswMig9TbfzO6 (capacity limited to 40 attendees)
+  Waitlist: https://ubc.ca1.qualtrics.com/jfe/form/SV_cRY7T91piBCceUu (waitlist members will be informed if space becomes available)
+date:
+  year: 2023
+  month: 4
+  day: 3
+startTime:
+  hour: 11
+  minute: 30
+endTime:
+  hour: 13
+  minute: 30
+location: ICICS X860
+signupLink: https://ubc.ca1.qualtrics.com/jfe/form/SV_6icswMig9TbfzO6
+---
+
+import EventButtons from "@/components/EventButtons.astro";
+import EventInfo from "@/components/EventInfo.astro";
+import Picture from "@/components/Picture.astro";
+import { getDominantColor } from "@/helpers/getDominantColor";
+import { getRootUrl } from "@/helpers/getRootUrl";
+import coverSrc from "@/assets/events/2023-04-CC.png";
+
+export const cover = {
+  src: coverSrc,
+  dominantColor: getDominantColor(
+    new URL("src/assets/events/2023-04-CC.png", getRootUrl(import.meta.url))
+  ),
+};
+
+<Picture
+  src={cover.src}
+  alt={frontmatter.title}
+  position={cover.position}
+  dominantColor={cover.dominantColor}
+/>
+
+# {frontmatter.name}
+
+<EventInfo {...frontmatter} showYear={true} />
+
+<EventButtons {...frontmatter} link={url} wide hideIfPast />
+
+<p>{frontmatter.description}</p>

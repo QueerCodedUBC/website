@@ -1,6 +1,7 @@
 ---
 import { type Event } from "@/types/Event";
 import CardTable from "./CardTable.astro";
+import CardTableCell from "./CardTableCell.astro";
 import EventCard from "./EventCard.astro";
 
 interface Props {
@@ -14,7 +15,9 @@ const { events, showYear } = Astro.props;
 <CardTable>
   {
     events.map((event) => (
-      <EventCard event={event} link={event.url} showYear={showYear} />
+      <CardTableCell>
+        <EventCard event={event} link={event.url} showYear={showYear} />
+      </CardTableCell>
     ))
   }
 </CardTable>

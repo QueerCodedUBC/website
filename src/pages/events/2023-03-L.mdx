@@ -19,14 +19,3 @@ endTime:
 location: ICICS X860
 signupLink: https://ubc.ca1.qualtrics.com/jfe/form/SV_1IjsIwjNEQSb1Wu
 ---
-
-import EventButtons from "@/components/EventButtons.astro";
-import EventInfo from "@/components/EventInfo.astro";
-
-# {frontmatter.name}
-
-<EventInfo {...frontmatter} showYear={true} />
-
-<EventButtons {...frontmatter} link={url} wide hideIfPast />
-
-<p>{frontmatter.description}</p>

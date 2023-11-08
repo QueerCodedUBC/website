@@ -23,9 +23,6 @@ location: ICICS X860
 # signupLink: https://ubc.ca1.qualtrics.com/jfe/form/SV_8iBG72jjsRW4TcO
 ---
 
-import EventButtons from "@/components/EventButtons.astro";
-import EventInfo from "@/components/EventInfo.astro";
-
 {/* import Picture from "@/components/Picture.astro";
 import { getDominantColor } from "@/helpers/getDominantColor";
 import { getRootUrl } from "@/helpers/getRootUrl";
@@ -37,20 +34,7 @@ export const cover = {
     new URL("src/assets/events/QC_CC_Oct_2023.png", getRootUrl(import.meta.url))
   ),
 };
-
-<Picture
-  src={cover.src}
-  alt={frontmatter.title}
-  position={cover.position}
-  dominantColor={cover.dominantColor}
-/>
 */}
-
-# {frontmatter.name}
-
-<EventInfo {...frontmatter} showYear={true} />
-
-<EventButtons {...frontmatter} link={url} wide hideIfPast />
 
 Come play board games and eat pastries with us. Get the chance to meet with Computer Science professors and other students. The event provides a safe space for LBGTQ+ identities in Computer Science and adjacent fields, but is always welcoming of all attendees, regardless of your identity and major.
 

@@ -1,17 +1,55 @@
 ---
+import EventButtons from "@/components/EventButtons.astro";
+import EventInfo from "@/components/EventInfo.astro";
+import Picture from "@/components/Picture.astro";
+import { EventSchema, type Event } from "@/types/Event";
 import Layout from "./Layout.astro";
+
+function wrapLinks(html: string): string {
+  return html.replace(
+    /((ht|f)tps?:\/\/[^\"<]*?)(?=\s|$|<\/[^a]>)/g,
+    '<a href="$1" target="_blank">$1</a>'
+  );
+}
 
 const { frontmatter } = Astro.props;
 
-const html = (await Astro.slots.render("default")).replace(
-  /((ht|f)tps?:\/\/[^\"<]*?)(?=\s|$|<\/[^a]>)/g,
-  '<a href="$1" target="_blank">$1</a>'
-);
+const html = await Astro.slots.render("default");
+const event = (await Astro.glob<Event>("../pages/events/*.mdx"))
+  .map((event) => ({
+    ...event,
+    ...event.frontmatter,
+  }))
+  // validate all events
+  .map((event) => {
+    EventSchema.parse(event);
+    return event;
+  })
+  .find((e) => e.file === frontmatter.file)!;
 ---
 
-<Layout title={`${frontmatter.name} - Queer Coded UBC`} showTopBar>
+<Layout title={`${event.name} - Queer Coded UBC`} showTopBar>
   <div class="content">
-    <Fragment set:html={html} />
+    {
+      event.cover && (
+        <Picture
+          src={event.cover.src}
+          alt={event.name}
+          position={event.cover.position}
+          dominantColor={event.cover.dominantColor}
+        />
+      )
+    }
+    <h1>{event.name}</h1>
+    <EventInfo {...event} showYear={true} />
+    <EventButtons {...event} link={frontmatter.url} wide hideIfPast />
+    {
+      html.trim().length > 0 ? (
+        <Fragment set:html={wrapLinks(html)} />
+      ) : event.description ? (
+        <p set:html={wrapLinks(event.description)} />
+      ) : null
+    }
   </div>
 </Layout>
 

@@ -25,9 +25,6 @@ location: ICICS X860
 signupLink: https://ubc.ca1.qualtrics.com/jfe/form/SV_9GOnQAXf3ZBoXtA
 ---
 
-import EventButtons from "@/components/EventButtons.astro";
-import EventInfo from "@/components/EventInfo.astro";
-import Picture from "@/components/Picture.astro";
 import { getDominantColor } from "@/helpers/getDominantColor";
 import { getRootUrl } from "@/helpers/getRootUrl";
 import coverSrc from "@/assets/events/2023-09-CC.png";
@@ -38,19 +35,6 @@ export const cover = {
     new URL("src/assets/events/2023-09-CC.png", getRootUrl(import.meta.url))
   ),
 };
-
-<Picture
-  src={cover.src}
-  alt={frontmatter.title}
-  position={cover.position}
-  dominantColor={cover.dominantColor}
-/>
-
-# {frontmatter.name}
-
-<EventInfo {...frontmatter} showYear={true} />
-
-<EventButtons {...frontmatter} link={url} wide hideIfPast />
 
 Colourful Conversations is back! Come join us for our first event of the year.
 

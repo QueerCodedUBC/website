@@ -18,7 +18,7 @@ const events = (await Astro.glob<Event>("./events/*.mdx"))
   })
   .filter(isEventInFuture)
   // sort events, most recent first
-  .sort((a, b) => compareEventStart(b, a));
+  .sort((a, b) => compareEventStart(a, b));
 ---
 
 <Layout title="Queer Coded UBC">

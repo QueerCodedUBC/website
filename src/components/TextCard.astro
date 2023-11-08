@@ -29,6 +29,13 @@ const { title, link } = Astro.props;
 
 <style lang="scss">
   .text-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+
+    width: 100%;
+
     > .text-content {
       margin-left: var(--card-padding);
       margin-right: var(--card-padding);

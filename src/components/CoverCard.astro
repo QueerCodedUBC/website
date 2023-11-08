@@ -1,4 +1,5 @@
 ---
+import logoSvg from "@/assets/logo.svg";
 import type { Cover } from "@/types/Event";
 import Picture from "./Picture.astro";
 import TextCard from "./TextCard.astro";
@@ -14,7 +15,7 @@ const { cover, title, link } = Astro.props;
 
 <TextCard title={title} link={link}>
   {
-    cover && (
+    cover ? (
       <Picture
         slot="top"
         class="cover"
@@ -23,6 +24,14 @@ const { cover, title, link } = Astro.props;
         alt={title}
         dominantColor={cover.dominantColor}
       />
+    ) : (
+      <div class="cover placeholder">
+        <img
+          src={logoSvg.src}
+          style={{ aspectRatio: `${logoSvg.width}/${logoSvg.height}` }}
+          alt="Queer Coded Logo"
+        />
+      </div>
     )
   }
   <slot />
@@ -35,5 +44,18 @@ const { cover, title, link } = Astro.props;
     aspect-ratio: 1;
     object-fit: cover;
     object-position: center;
+
+    &.placeholder {
+      position: relative;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        width: 30%;
+        height: auto;
+      }
+    }
   }
 </style>

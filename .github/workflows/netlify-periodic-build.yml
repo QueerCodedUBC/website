@@ -1,0 +1,17 @@
+# from https://github.com/kubernetes/website/blob/main/.github/workflows/netlify-periodic-build.yml
+
+name: Scheduled Netlify site build
+on:
+  schedule:
+    # Build twice daily: shortly after midnight and noon (UTC-8, aka PST)
+    # Offset is to be nice to the build service
+    - cron: "6 8,20 * * *" # 12:06am and 12:06pm PST
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger build on Netlify
+        env:
+          TOKEN: ${{ secrets.NETLIFY_BUILD_HOOK_KEY }}
+        run: >-
+          curl -s -X POST -d {} "https://api.netlify.com/build_hooks/${TOKEN}"

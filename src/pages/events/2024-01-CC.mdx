@@ -1,0 +1,46 @@
+---
+layout: "@/layouts/Event.astro"
+
+name: Colourful Conversations January
+description: |
+  Colourful Conversations is back!
+
+  Join us for sweet treats, board games, and colourful conversations with fellow students and professors. The event provides a safe space for LBGTQ+ identities in Computer Science and adjacent fields, but is always welcoming of all attendees, regardless of your identity and major.
+
+  Our guests of the month are Professor Ivan Beschastnikh (Systems) and Professor Alex Summers (Programming Languages). Get the chance to meet with them while enjoying good food and fun games!
+
+  Sign up at: https://ubc.ca1.qualtrics.com/jfe/form/SV_dbqGiOOFqlDhbZs (max capacity 40 attendees)
+  If the sign up form is full, please sign up on our waitlist: https://ubc.ca1.qualtrics.com/jfe/form/SV_7QmFNHUU8jdvCSO (We will inform you if space opens up.)
+date:
+  year: 2024
+  month: 1
+  day: 31
+startTime:
+  hour: 17
+  minute: 0
+endTime:
+  hour: 19
+  minute: 0
+location: ICICS X860
+signupLink: https://ubc.ca1.qualtrics.com/jfe/form/SV_dbqGiOOFqlDhbZs
+---
+
+import { getDominantColor } from "@/helpers/getDominantColor";
+import { getRootUrl } from "@/helpers/getRootUrl";
+import coverSrc from "@/assets/events/2024-01-CC.png";
+
+export const cover = {
+  src: coverSrc,
+  dominantColor: getDominantColor(
+    new URL("src/assets/events/2024-01-CC.png", getRootUrl(import.meta.url))
+  ),
+};
+
+Colourful Conversations is back!
+
+Join us for sweet treats, board games, and colourful conversations with fellow students and professors. The event provides a safe space for LBGTQ+ identities in Computer Science and adjacent fields, but is always welcoming of all attendees, regardless of your identity and major.
+
+Our guests of the month are [Professor Ivan Beschastnikh](https://www.cs.ubc.ca/people/ivan-beschastnikh) (Systems) and [Professor Alex Summers](https://www.cs.ubc.ca/people/alex-summers) (Programming Languages). Get the chance to meet with them while enjoying good food and fun games!
+
+Sign up at: https://ubc.ca1.qualtrics.com/jfe/form/SV_dbqGiOOFqlDhbZs (max capacity 40 attendees)
+If the sign up form is full, please sign up on our waitlist: https://ubc.ca1.qualtrics.com/jfe/form/SV_7QmFNHUU8jdvCSO (We will inform you if space opens up.)

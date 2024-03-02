@@ -1,0 +1,46 @@
+---
+layout: "@/layouts/Event.astro"
+
+name: Colourful Conversations March
+description: |
+  Come to our latest Colourful Conversations event!
+
+  Join the conversation with peers and professors, while enjoying delicious pastries and board games. The event provides a safe space for LBGTQ+ identities in Computer Science and adjacent fields, but is always welcoming of all attendees, regardless of your identity and major.
+
+  This month, we welcome Professor Karina Mochetti (Computer Science Education) and Professor Caroline Lemieux (Programming Languages) as our guests. Come enjoy some good food, fun games, and colourful conversations.
+
+  Sign up at: https://ubc.ca1.qualtrics.com/jfe/form/SV_26lmcB9Y7hKy03I (max capacity 40 attendees)
+  If the sign up form is full, please sign up on our waitlist: https://ubc.ca1.qualtrics.com/jfe/form/SV_4HFwYQjNkvFB5Ge (We will inform you if space opens up.)
+date:
+  year: 2024
+  month: 3
+  day: 13
+startTime:
+  hour: 17
+  minute: 0
+endTime:
+  hour: 19
+  minute: 0
+location: ICICS X860
+signupLink: https://ubc.ca1.qualtrics.com/jfe/form/SV_26lmcB9Y7hKy03I
+---
+
+import { getDominantColor } from "@/helpers/getDominantColor";
+import { getRootUrl } from "@/helpers/getRootUrl";
+import coverSrc from "@/assets/events/2024-03-CC.png";
+
+export const cover = {
+  src: coverSrc,
+  dominantColor: getDominantColor(
+    new URL("src/assets/events/2024-03-CC.png", getRootUrl(import.meta.url))
+  ),
+};
+
+Come to our latest Colourful Conversations event!
+
+Join the conversation with peers and professors, while enjoying delicious pastries and board games. The event provides a safe space for LBGTQ+ identities in Computer Science and adjacent fields, but is always welcoming of all attendees, regardless of your identity and major.
+
+This month, we welcome [Professor Karina Mochetti](https://www.cs.ubc.ca/~mochetti/) (Computer Science Education) and [Professor Caroline Lemieux](https://www.carolemieux.com/) (Programming Languages) as our guests. Come enjoy some good food, fun games, and colourful conversations.
+
+Sign up at: https://ubc.ca1.qualtrics.com/jfe/form/SV_26lmcB9Y7hKy03I (max capacity 40 attendees)
+If the sign up form is full, please sign up on our waitlist: https://ubc.ca1.qualtrics.com/jfe/form/SV_4HFwYQjNkvFB5Ge (We will inform you if space opens up.)

@@ -28,7 +28,51 @@ const event = (await Astro.glob<Event>("../pages/events/*.mdx"))
   .find((e) => e.file === frontmatter.file)!;
 ---
 
-<Layout title={`${event.name} - Queer Coded UBC`} showTopBar>
+<Layout
+  title={`${event.name} - Queer Coded UBC`}
+  description={event.description}
+  showTopBar
+>
+  <Fragment slot="og">
+    <meta property="og:title" content={event.name} />
+    <meta
+      property="og:description"
+      content={event.description ?? "Queer Coded UBC event"}
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.site!.toString()} />
+    {
+      event.cover ? (
+        <>
+          <meta property="og:image" content={event.cover.src.src} />
+          <meta
+            property="og:image:width"
+            content={event.cover.src.width.toString()}
+          />
+          <meta
+            property="og:image:height"
+            content={event.cover.src.height.toString()}
+          />
+        </>
+      ) : (
+        <>
+          <meta
+            property="og:image"
+            content={new URL("/open-graph.png", Astro.site).toString()}
+          />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="675" />
+          <meta
+            property="og:image"
+            content={new URL("/open-graph-square.png", Astro.site).toString()}
+          />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="1200" />
+        </>
+      )
+    }
+  </Fragment>
+
   <div class="content">
     {
       event.cover && (

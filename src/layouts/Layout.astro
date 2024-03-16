@@ -4,10 +4,11 @@ import TopBar from "@/components/TopBar.astro";
 
 interface Props {
   title: string;
+  description?: string;
   showTopBar?: boolean;
 }
 
-const { title, showTopBar } = Astro.props;
+const { title, description, showTopBar } = Astro.props;
 ---
 
 <!doctype html>
@@ -20,7 +21,8 @@ const { title, showTopBar } = Astro.props;
 
     <meta
       name="description"
-      content="Queer Coded is a group for LGBTQ2IA+ students and allies interested in Computer Science at UBC. Our goal is to create a safe and welcoming collective that fosters community building and empowers and supports students, while increasing the visibility of LGBTQ2IA+ people in tech."
+      content={description ??
+        "Queer Coded is a group for LGBTQ2IA+ students and allies interested in Computer Science at UBC. Our goal is to create a safe and welcoming collective that fosters community building and empowers and supports students, while increasing the visibility of LGBTQ2IA+ people in tech."}
     />
 
     <meta
@@ -30,36 +32,40 @@ const { title, showTopBar } = Astro.props;
     />
     <meta name="theme-color" content="#fffcfc" />
 
-    <meta property="og:title" content="Queer Coded" />
-    <meta
-      property="og:description"
-      content="A group for LGBTQ2IA+ students and allies interested in Computer Science at UBC."
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.site!.toString()} />
-    <meta
-      property="og:image"
-      content={new URL("/open-graph.png", Astro.site).toString()}
-    />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="675" />
-    <meta
-      property="og:image"
-      content={new URL("/open-graph-square.png", Astro.site).toString()}
-    />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="1200" />
+    <slot name="og">
+      <meta property="og:title" content="Queer Coded" />
+      <meta
+        property="og:description"
+        content="A group for LGBTQ2IA+ students and allies interested in Computer Science at UBC."
+      />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content={Astro.site!.toString()} />
+      <meta
+        property="og:image"
+        content={new URL("/open-graph.png", Astro.site).toString()}
+      />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="675" />
+      <meta
+        property="og:image"
+        content={new URL("/open-graph-square.png", Astro.site).toString()}
+      />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="1200" />
+    </slot>
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:image"
-      content={new URL("/open-graph.png", Astro.site).toString()}
-    />
-    <meta name="twitter:title" content="Queer Coded" />
-    <meta
-      name="twitter:description"
-      content="A group for LGBTQ2IA+ students and allies interested in Computer Science at UBC."
-    />
+    <slot name="twitter">
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta
+        name="twitter:image"
+        content={new URL("/open-graph.png", Astro.site).toString()}
+      />
+      <meta name="twitter:title" content="Queer Coded" />
+      <meta
+        name="twitter:description"
+        content="A group for LGBTQ2IA+ students and allies interested in Computer Science at UBC."
+      />
+    </slot>
 
     <title>{title}</title>
   </head>

@@ -40,7 +40,7 @@ const event = (await Astro.glob<Event>("../pages/events/*.mdx"))
       content={event.description ?? "Queer Coded UBC event"}
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.site!.toString()} />
+    <meta property="og:url" content={Astro.url!.toString()} />
     {
       event.cover ? (
         <>

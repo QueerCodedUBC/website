@@ -76,6 +76,22 @@ const event = (await Astro.glob<Event>("../pages/events/*.mdx"))
     }
   </Fragment>
 
+  <Fragment slot="twitter">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:image"
+      content={new URL(
+        event.cover?.src.src ?? "/open-graph.png",
+        Astro.site
+      ).toString()}
+    />
+    <meta name="twitter:title" content={event.name} />
+    <meta
+      name="twitter:description"
+      content={event.description ?? "Queer Coded UBC event"}
+    />
+  </Fragment>
+
   <div class="content">
     {
       event.cover && (

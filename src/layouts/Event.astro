@@ -44,7 +44,10 @@ const event = (await Astro.glob<Event>("../pages/events/*.mdx"))
     {
       event.cover ? (
         <>
-          <meta property="og:image" content={event.cover.src.src} />
+          <meta
+            property="og:image"
+            content={new URL(event.cover.src.src, Astro.site).toString()}
+          />
           <meta
             property="og:image:width"
             content={event.cover.src.width.toString()}
